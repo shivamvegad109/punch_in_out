@@ -68,6 +68,11 @@ class PunchoutView(generics.GenericAPIView):
                     total_working_hours = total_working_time.seconds // 3600
                     total_working_minutes = (total_working_time.seconds % 3600) // 60
                     user.working = (total_working_hours * 60) + total_working_minutes
+                    
+                    # ------------   Calculate minutes  ----------------
+    
+                    # total_working_minutes = total_working_time.total_seconds() // 60
+                    # user.working = total_working_minutes
                     user.save()
                     message = "Punch-out successful"
                     return Response({'message': message,'Today Working Hours':user.working,'data': serializer.data}, status=status.HTTP_200_OK)
